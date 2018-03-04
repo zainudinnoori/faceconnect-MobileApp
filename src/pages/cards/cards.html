@@ -1,33 +1,108 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>{{ 'CARDS_TITLE' | translate }}</ion-title>
-  </ion-navbar>
+  <ion-navbar color="primary">
+    <button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
 
+    <ion-searchbar 
+    [showCancelButton]="shouldShowCancel"
+    (ionInput)="onInput($event)"
+    (ionCancel)="onCancel($event)"
+    >
+  </ion-searchbar>
+  </ion-navbar>
+  <ion-toolbar>
+      <ion-grid>
+          <ion-row>
+            <ion-col text-center (click)="goToProfilePage()">
+            <ion-icon name="apps" color="primary"  class="medium-icon" ></ion-icon>          
+            </ion-col>
+            <ion-col text-center>
+                <ion-icon color="primary" name="chatbubbles" class="medium-icon"></ion-icon>
+                <ion-badge color="danger" item-end>8</ion-badge>
+                
+            </ion-col>
+            <ion-col text-center (click)="goToNotifications()">
+                <ion-icon name="md-globe" color="primary" class="medium-icon"></ion-icon>
+                  <ion-badge color="danger" item-end>22</ion-badge>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+  </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
+    <ion-card (click)="SubmitPostPage()">
+        <ion-item>
+            <p style="padding: 20px;font-size:15px">What do you have in your mind ?</p>
+        </ion-item>
+    </ion-card>
 
-  <ion-card *ngFor="let item of cardItems">
+  <ion-card *ngFor="let post of posts">
+
+    <div>
+        <ion-item>
+            <ion-avatar item-start>
+              <!-- <img [src]="post.user.avatar"> -->
+              <img src="assets/img/sarah-avatar.png.jpeg">
+            </ion-avatar>
+            <!-- <h2>{{post.user_id}}</h2> -->
+                <h2>A user</h2>
+            <ion-note>
+                {{post.created_at}}
+                <!-- 12 hours ago     -->
+            </ion-note>
+          </ion-item>
+      
+          <!-- <img ng-if="post.image" [src]="item.image"> -->
+      
+          <ion-card-content>
+            <p>{{post.body}}</p>
+          </ion-card-content>
+    </div>
+    
+    <hr>
 
     <ion-item>
-      <ion-avatar item-start>
-        <img [src]="item.user.avatar">
-      </ion-avatar>
-      <h2>{{item.user.name}}</h2>
-      <p>{{item.date}}</p>
+        <ion-input placeholder="Write something about this post..."></ion-input>
     </ion-item>
-
-    <img [src]="item.image">
-
-    <ion-card-content>
-      <p>{{item.content}}</p>
-    </ion-card-content>
-
+    <hr style="position:relative;top:7-15px">      
+    <ion-item-group>  
+      <ion-grid>
+        <ion-row>
+          <b class="padding-left-10px blue"> 2 Comments...</b>
+        </ion-row>
+        <ion-row>
+          <ion-col col-2 style="margin-left:0px;padding:0px">
+              <ion-item item-right style="margin-right:0px;padding-right:0px" >
+                 <img src="assets/img/sarah-avatar.png.jpeg">                
+              </ion-item>
+          </ion-col>
+          <ion-col col-10>
+              <b>Siawash kasra</b>
+              <p>yes man this is the best and i have never seen this kind of projects</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-2 style="margin-left:0px;padding:0px">
+                <ion-item item-right style="margin-right:0px;padding-right:0px" >
+                   <img src="assets/img/advance-card-bttf.png">                
+                </ion-item>
+            </ion-col>
+            <ion-col col-10>
+                <b>Shareef sahil</b>
+                <p>Amazing... </p>
+            </ion-col>
+          </ion-row>  
+          <ion-row>
+            <a href="#" class="padding-left-10px">View other comments...</a>
+          </ion-row>
+      </ion-grid>
+    </ion-item-group>
     <ion-row>
       <ion-col>
-        <button ion-button color="primary" clear small icon-start>
+        <button (click)="openLikeModal()" ion-button color="primary" clear small icon-start>
             <ion-icon name='thumbs-up'></ion-icon>
             12 Likes
           </button>
@@ -39,10 +114,11 @@
           </button>
       </ion-col>
       <ion-col center text-center>
-        <ion-note>
-          11h ago
-        </ion-note>
+          <button ion-button color="primary" clear small icon-start>
+              <ion-icon name='share'></ion-icon>
+          </button>
       </ion-col>
     </ion-row>
+
   </ion-card>
 </ion-content>

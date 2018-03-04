@@ -1,0 +1,85 @@
+page-profile {
+        .splash-bg {
+          position: relative;
+          background: url('../assets/img/nin-live.png') no-repeat transparent;
+          background-size: cover;
+          height: 35%;
+          z-index: 1;
+          background-repeat: repeat-x;
+        }
+      
+        @keyframes animatedBackground {
+          from { background-position: 0 0; }
+          to { background-position: 100% 0; }
+        }
+      
+        .splash-info {
+          position: relative;
+          z-index: 2;
+          margin-top: -64px;
+          text-align: center;
+        }
+        .splash-logo {
+          margin: auto;
+          background: url('../assets/img/ian-avatar.png') repeat transparent;
+          background-size: 100%;
+          width: 128px;
+          height: 128px;
+        }
+        .splash-intro {
+          font-size: 18px;
+          font-weight: bold;
+          max-width: 80%;
+          margin: auto;
+        }
+        button.login {
+          margin-top: 25px;
+          background-color: white;
+          box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+          color: #333;
+      
+          &.activated {
+            background-color: rgb(220, 220, 220);
+          }
+        }
+        .profilename{
+            margin-top:-20px 
+        }
+        .medium-icon{
+            zoom: 1.5;
+        }
+        .picon{
+            padding: 5px;
+        }
+
+        .transparent{
+            background-color: transparent;
+            padding: 0px;
+            color:#3c3939;
+        }
+        .padding-right-left{
+            padding:0px 5px 0px 5px;
+        }
+    .padding-left{
+        padding-left:5px; 
+    }
+    .featured-images{
+        height: 100px;
+        width: 100%;
+        // padding:2px;
+    }
+    .comments{
+         margin-top: -12px;
+    }
+
+    .padding-left-10px{
+        padding-left: 15px;
+    }
+    .blue{
+        color:#a01212;
+    }
+    .black{
+        color:black;
+    }
+}
+      

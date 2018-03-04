@@ -8,7 +8,7 @@ export class Items {
 
   defaultItem: any = {
     "name": "Burt Bear",
-    "profilePic": "assets/img/speakers/bear.jpg",
+    "profilePic": "assets/img/speakers/bear.jpeg",
     "about": "Burt is a Bear.",
   };
 
@@ -16,39 +16,39 @@ export class Items {
   constructor() {
     let items = [
       {
-        "name": "Burt Bear",
-        "profilePic": "assets/img/speakers/bear.jpg",
-        "about": "Burt is a Bear."
+        "name": "Trump Bear",
+        "profilePic": "assets/img/speakers/bear.jpeg",
+        "about": "Trump is a Bear."
       },
       {
-        "name": "Charlie Cheetah",
-        "profilePic": "assets/img/speakers/cheetah.jpg",
-        "about": "Charlie is a Cheetah."
+        "name": "Potin Cheetah",
+        "profilePic": "assets/img/speakers/cheetah.jpeg",
+        "about": "Potin is a Cheetah."
       },
       {
-        "name": "Donald Duck",
-        "profilePic": "assets/img/speakers/duck.jpg",
-        "about": "Donald is a Duck."
+        "name": "Elexander",
+        "profilePic": "assets/img/speakers/duck.jpeg",
+        "about": "Life’s true gift lies in your freedom to design it beautifully. With each rise of the sun, you get to chase the opportunity to fill your days with meaning—to live your life the way you choose."
       },
       {
         "name": "Eva Eagle",
-        "profilePic": "assets/img/speakers/eagle.jpg",
-        "about": "Eva is an Eagle."
+        "profilePic": "assets/img/speakers/eagle.jpeg",
+        "about": "I think being in love with life is a key to eternal youth.” —Doug Hutchison."
       },
       {
         "name": "Ellie Elephant",
-        "profilePic": "assets/img/speakers/elephant.jpg",
-        "about": "Ellie is an Elephant."
+        "profilePic": "assets/img/speakers/elephant.jpeg",
+        "about": "A man who dares to waste one hour of time has not discovered the value of life."
       },
       {
-        "name": "Molly Mouse",
-        "profilePic": "assets/img/speakers/mouse.jpg",
-        "about": "Molly is a Mouse."
+        "name": "Cute Mouse",
+        "profilePic": "assets/img/speakers/rabbit.jpeg",
+        "about": "If life were predictable it would cease to be life, and be without flavor."
       },
       {
         "name": "Paul Puppy",
-        "profilePic": "assets/img/speakers/puppy.jpg",
-        "about": "Paul is a Puppy."
+        "profilePic": "assets/img/speakers/turtle.jpeg",
+        "about": "All life is an experiment. The more experiments you make the better.”"
       }
     ];
 

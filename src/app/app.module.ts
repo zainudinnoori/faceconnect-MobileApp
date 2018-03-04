@@ -8,12 +8,24 @@ import { IonicStorageModule, Storage } from '@ionic/storage';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-
+import { AngularWebStorageModule } from 'angular-web-storage';
 import { Items } from '../mocks/providers/items';
 import { Settings } from '../providers/providers';
 import { User } from '../providers/providers';
 import { Api } from '../providers/providers';
 import { MyApp } from './app.component';
+import { LoginProvider } from '../providers/login/login';
+import { SignupProvider } from '../providers/signup/signup';
+import { UserPostsProvider } from '../providers/user-posts/user-posts';
+import { LoggedinUserPostsProvider } from '../providers/loggedin-user-posts/loggedin-user-posts';
+import { FollowingUsersPostProvider } from '../providers/following-users-post/following-users-post';
+import { PostLikesCommentsProvider } from '../providers/post-likes-comments/post-likes-comments';
+import { GetUserInfoProvider } from '../providers/get-user-info/get-user-info';
+import { GetFollowersProvider } from '../providers/get-followers/get-followers';
+import { GetFollowingsProvider } from '../providers/get-followings/get-followings';
+import { GetUserOwnPostsProvider } from '../providers/get-user-own-posts/get-user-own-posts';
+import { GetUserPhotosProvider } from '../providers/get-user-photos/get-user-photos';
+import { GetSinglePostProvider } from '../providers/get-single-post/get-single-post';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -38,7 +50,7 @@ export function provideSettings(storage: Storage) {
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +63,8 @@ export function provideSettings(storage: Storage) {
       }
     }),
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    AngularWebStorageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -66,7 +79,19 @@ export function provideSettings(storage: Storage) {
     StatusBar,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    LoginProvider,
+    SignupProvider,
+    UserPostsProvider,
+    LoggedinUserPostsProvider,
+    FollowingUsersPostProvider,
+    PostLikesCommentsProvider,
+    GetUserInfoProvider,
+    GetFollowersProvider,
+    GetFollowingsProvider,
+    GetUserOwnPostsProvider,
+    GetUserPhotosProvider,
+    GetSinglePostProvider
   ]
 })
 export class AppModule { }

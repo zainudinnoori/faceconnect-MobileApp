@@ -15,5 +15,7 @@ import { CardsPage } from './cards';
   exports: [
     CardsPage
   ]
+
+
 })
 export class CardsPageModule { }

@@ -7,6 +7,8 @@
   "PASSWORD": "Password",
   "LOGIN": "Sign in",
   "SIGNUP": "Sign up",
+  "DATE_OF_BIRTH" :"Date Of birth",
+
 
   "TAB1_TITLE": "Items",
   "TAB2_TITLE": "Search",
@@ -15,7 +17,7 @@
   "MAP_TITLE": "Map",
 
   "TUTORIAL_SKIP_BUTTON": "Skip",
-  "TUTORIAL_CONTINUE_BUTTON": "Continue",
+  "TUTORIAL_CONTINUE_BUTTON": "Let's Go",
 
   "TUTORIAL_SLIDE1_TITLE": "Welcome to the Ionic Super Starter",
   "TUTORIAL_SLIDE1_DESCRIPTION": "The <b>Ionic Super Starter</b> is a fully-featured Ionic starter with many pre-built pages and best practices.",
@@ -26,9 +28,9 @@
   "TUTORIAL_SLIDE3_TITLE": "Getting Started",
   "TUTORIAL_SLIDE3_DESCRIPTION": "Need help? Check out the Super Starter README for a full tutorial",
 
-  "TUTORIAL_SLIDE4_TITLE": "Ready to Play?",
+  "TUTORIAL_SLIDE4_TITLE": "Ready to Go?",
 
-  "WELCOME_INTRO": "The starting point for your next great Ionic app",
+  "WELCOME_INTRO": "Signin or Signup to expericance connecting to real world!",
 
   "SETTINGS_TITLE": "Settings",
   "SETTINGS_OPTION1": "Option 1",
@@ -61,7 +63,7 @@
   "CANCEL_BUTTON": "Cancel",
   "DELETE_BUTTON": "Delete",
 
-  "CARDS_TITLE": "Social",
+  "CARDS_TITLE": "Home",
 
   "SEARCH_TITLE": "Search",
   "SEARCH_PLACEHOLDER": "Search the items list, e.g. \"Donald Duck\""

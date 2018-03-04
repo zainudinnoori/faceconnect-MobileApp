@@ -14,7 +14,7 @@ import { Tab3Root } from '../pages';
 export class TabsPage {
   tab1Root: any = Tab1Root;
   tab2Root: any = Tab2Root;
-  tab3Root: any = Tab3Root;
+  tab3Root: any = Tab3Root;turtle
 
   tab1Title = " ";
   tab2Title = " ";

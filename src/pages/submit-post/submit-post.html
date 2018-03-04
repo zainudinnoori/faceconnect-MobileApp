@@ -1,0 +1,61 @@
+<!--
+  Generated template for the SubmitPostPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons>
+      <button ion-button (click)="dismiss()">
+       Cancle
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button (click)="Post()">
+       Post &nbsp;  <ion-icon ios="ios-paper-plane" md="md-paper-plane"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-2>
+          <img src="assets/img/sarah-avatar.png.jpeg">  
+      </ion-col>
+      <ion-col>
+        <b>Hamee khan</b>
+        <p style="margin:8px;color:blue"><ion-icon ios="ios-globe" md="md-globe"></ion-icon> Public</p>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <ion-col>
+          <textarea placeholder="Write Something..." class="post-textarea"></textarea>
+      </ion-col>          
+    </ion-row>
+    <ion-row style="margin-top:px">
+      <button class="post-buttons" ion-button full outline color="grey">Upload image &nbsp;
+      <ion-icon ios="ios-images" md="md-images"></ion-icon>
+    </button>      
+    </ion-row>
+    <ion-row style="margin-top:px">
+        <button class="post-buttons" ion-button full outline color="dark" >Share Feelings  &nbsp;
+            <ion-icon ios="ios-happy" md="md-happy"></ion-icon>
+    </button>      
+    </ion-row>
+    <ion-row style="margin-top:px">
+        <button class="post-buttons" ion-button full outline color="secondary" >Check in  &nbsp;
+            <ion-icon ios="ios-pin" md="md-pin"></ion-icon>
+    </button>      
+    </ion-row>
+    <ion-row style="margin-top:px">
+        <button class="post-buttons" ion-button full outline color="danger" >Call a friend  &nbsp;
+            <ion-icon ios="ios-happy" md="md-happy"></ion-icon>
+    </button>      
+    </ion-row>
+  </ion-grid>
+</ion-content>

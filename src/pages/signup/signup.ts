@@ -4,21 +4,18 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
 import { User } from '../../providers/providers';
 import { MainPage } from '../pages';
-
+import { SignupProvider} from '../../providers/signup/signup';
 @IonicPage()
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html'
 })
 export class SignupPage {
-  // The account fields for the login form.
-  // If you're using the username field with or without email, make
-  // sure to add it to the type
-  account: { name: string, email: string, password: string } = {
-    name: 'Test Human',
-    email: 'test@example.com',
-    password: 'test'
-  };
+
+ name: string;
+ email: string;
+ password: string;
+ dob:string;
 
   // Our translated text strings
   private signupErrorString: string;
@@ -26,28 +23,35 @@ export class SignupPage {
   constructor(public navCtrl: NavController,
     public user: User,
     public toastCtrl: ToastController,
-    public translateService: TranslateService) {
-
+    public translateService: TranslateService,
+    public signUpService: SignupProvider
+    
+  ) {
+  
     this.translateService.get('SIGNUP_ERROR').subscribe((value) => {
       this.signupErrorString = value;
     })
   }
 
   doSignup() {
-    // Attempt to login in through our User service
-    this.user.signup(this.account).subscribe((resp) => {
-      this.navCtrl.push(MainPage);
-    }, (err) => {
-
-      this.navCtrl.push(MainPage);
-
-      // Unable to sign up
+      this.signUpService.signUp(this.email, this.password, this.name, this.dob).subscribe(res => {
+      this.navCtrl.setRoot('CardsPage');
       let toast = this.toastCtrl.create({
-        message: this.signupErrorString,
-        duration: 3000,
-        position: 'top'
+      message: 'Registered Done, Welcome to faceconnect',
+      duration: 3000,
+      position: 'top'
       });
       toast.present();
-    });
+        
+   },err => {
+        let toast = this.toastCtrl.create({
+        message: err,
+        duration: 3000,
+        position: 'top'
+        });
+        toast.present();
+   })
+
+    console.log(this.name+'-----' + this.email+'-----' +this.password+'-----' +this.dob);
   }
 }
