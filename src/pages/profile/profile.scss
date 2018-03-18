@@ -81,5 +81,18 @@ page-profile {
     .black{
         color:black;
     }
+
+    .comment-button{
+        padding:0px 10px 0px 10px;
+        position: relative;
+        margin:3px 0px -2px 87%;
+    }
+    .editing{
+        color: rgba(255, 0, 0, 0.89);
+        font-size: 18px;
+        padding: 3px;
+        position: relative;
+        left: 50px;
+        }
 }
       

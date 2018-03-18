@@ -11,25 +11,58 @@ page-cards {
     .padding-right-left{
         padding:0px 5px 0px 5px;
     }
-.padding-left{
-    padding-left:5px; 
-}
-.featured-images{
-    height: 100px;
-    width: 100%;
-    // padding:2px;
-}
-.comments{
-     margin-top: -12px;
-}
+    .padding-left{
+        padding-left:5px; 
+    }
+    .featured-images{
+        height: 100px;
+        width: 100%;
+        // padding:2px;
+    }
+    .comments{
+        margin-top: -12px;
+    }
 
-.padding-left-10px{
-    padding-left: 15px;
-}
-.blue{
-    color:#a01212;
-}
-.black{
-    color:black;
-}
+    .padding-left-10px{
+        padding-left: 15px;
+    }
+    .red{
+        color:#a01212;
+    }
+    .black{
+        color:black;
+    }
+
+    .grey{
+        color: grey;
+    }
+
+    .comment-button{
+        padding:0px 10px 0px 10px;
+        position: relative;
+        margin:3px 0px -2px 87%;
+    }
+    .editing{
+        color: rgba(255, 0, 0, 0.89);
+        font-size: 18px;
+        padding: 3px;
+        position: relative;
+        left: 50px;
+        }
+    .newclass{
+            color: blue;
+            background-color: red;
+        }
+        .liked { color: blue; }
+
+        .likesandcommentsrow{
+            .likes{
+                text-align: left;
+            }
+            .comments{
+                text-align: right;
+                right: 20px;
+                margin-top: 0px;
+            }
+        }
 }

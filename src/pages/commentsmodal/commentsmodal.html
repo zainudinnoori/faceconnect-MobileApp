@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      {{commentCount}} Comments
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content> 
+  <ion-list>
+      <ion-list>
+          <ion-item *ngFor="let comment of comments" (click)="goToUserProfilePage(comment.comment_user.id)">
+            <ion-avatar item-start>
+              <img src="img/avatar-finn.png">
+            </ion-avatar>
+            <h2><b>{{comment.comment_user.name}}</b></h2>
+            <p>{{comment.created_at}}</p>
+            <p style="color: darkblue">{{comment.body}}</p>
+          </ion-item>
+        </ion-list>
+  </ion-list>
+
+
+
+
+
+</ion-content>
+<ion-footer>
+    <form #form="ngForm">
+      <ion-item>
+          <ion-input hidden [(ngModel)]="pId" name="postId"></ion-input>
+          <ion-input placeholder="Write something about this post..." ngModel name="commentBody"></ion-input>
+      </ion-item>
+        <button ion-button small outline round class="comment-button" end (click)="onSubmit(form)">
+          <ion-icon ios="ios-send" md="md-send"></ion-icon>
+        </button> 
+      <hr style="position:relative;top:7-15px"> 
+    </form>
+</ion-footer>

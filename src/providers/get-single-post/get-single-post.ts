@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 /*
   Generated class for the GetSinglePostProvider provider.
@@ -14,4 +15,16 @@ export class GetSinglePostProvider {
     console.log('Hello GetSinglePostProvider Provider');
   }
 
+  getPost(postId):Observable<any>
+  {
+    let url='http://127.0.0.1:8000/api/post/'+ postId +'/show';
+    return this.http.get(url)
+    .catch(err=>
+      {
+        console.log('err in get-signle post -service');
+        let error = 'error';
+        return Observable.throw(error);
+       });
+  }
 }
+

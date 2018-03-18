@@ -13,13 +13,6 @@ import { LoginProvider } from '../../providers/login/login';
 
 export class LoginPage {
 
-  // The account fields for the login form.
-  // If you're using the username field with or without email, make
-  // sure to add it to the type
-  account: { email: string, password: string } = {
-    email: 'test@example.com',
-    password: 'test'
-  };
  
   // Our translated text strings
   private loginErrorString: string;
@@ -47,7 +40,7 @@ export class LoginPage {
   // Attempt to login in through our User service
 doLogin(value: any): void {
 
-    this.loginService.login(this.email, this.password, this.userId).subscribe(res => {
+    this.loginService.login(this.email, this.password).subscribe(res => {
     this.navCtrl.setRoot('CardsPage');
     let toast = this.toastCtrl.create({
     message: 'Welcome to faceconnect',
@@ -55,8 +48,8 @@ doLogin(value: any): void {
     position: 'top'
     });
     toast.present();
-    localStorage.setItem('Auth',this.userId);
-      
+    localStorage.setItem('AuthId',res.authId);
+    // console.log(localStorage.getItem('Auth'));
  },err => {
       let toast = this.toastCtrl.create({
       message: err,

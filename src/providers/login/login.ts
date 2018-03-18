@@ -18,7 +18,7 @@ export class LoginProvider {
 
 serverUrl='http://127.0.0.1:8000';
 
-  login(email: string, password: string,userId :string): Observable<any> {
+  login(email: string, password: string): Observable<any> {
     let url = this.serverUrl + "/api/login";
     return this.http
       .post(
@@ -26,7 +26,7 @@ serverUrl='http://127.0.0.1:8000';
         { email: email, password: password },
       )
       .catch(err => {
-        console.log('err in service: ', err)
+        console.log('err in login service: ', err)
         let error = 'Invalid credentials'
         return Observable.throw(error);
       });

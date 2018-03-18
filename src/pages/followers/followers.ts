@@ -13,13 +13,14 @@ import { NavParams } from 'ionic-angular/navigation/nav-params';
 })
 export class FollowersPage {
 
-  currentItems: Item[];
+
   user: User;
   followers:any[];
   userId;
   constructor(public navCtrl: NavController,public navParams : NavParams, public items: Items, public modalCtrl: ModalController, public getFollowers: GetFollowersProvider) {
-    this.currentItems = this.items.query();
+
     this.userId = this.navParams.get('userId');
+    
     this.getFollowers.getFollowers(this.userId).subscribe(data =>{
       this.followers= data.followers;
       console.log(this.followers.length)
@@ -27,9 +28,10 @@ export class FollowersPage {
   }
 
 
-  goToUserProfilePage(Uid : number){
+  goToUserProfilePage(uId : number){
+    console.log(uId);
     this.navCtrl.push('UserProfilePage',{
-      Uid: Uid
+      uId: uId
     });
   }
 

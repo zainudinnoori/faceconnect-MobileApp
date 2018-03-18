@@ -26,7 +26,14 @@ import { GetFollowingsProvider } from '../providers/get-followings/get-following
 import { GetUserOwnPostsProvider } from '../providers/get-user-own-posts/get-user-own-posts';
 import { GetUserPhotosProvider } from '../providers/get-user-photos/get-user-photos';
 import { GetSinglePostProvider } from '../providers/get-single-post/get-single-post';
-
+import { StorePostProvider } from '../providers/store-post/store-post';
+import { StoreLikeProvider } from '../providers/store-like/store-like';
+import { StoreCommentProvider } from '../providers/store-comment/store-comment';
+import { PostCrudProvider } from '../providers/post-crud/post-crud';
+import { SharePostProvider } from '../providers/share-post/share-post';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FollowUserProvider } from '../providers/follow-user/follow-user';
+import { UpdatePostProvider } from '../providers/update-post/update-post';
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
 export function createTranslateLoader(http: HttpClient) {
@@ -54,6 +61,7 @@ export function provideSettings(storage: Storage) {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -91,7 +99,14 @@ export function provideSettings(storage: Storage) {
     GetFollowingsProvider,
     GetUserOwnPostsProvider,
     GetUserPhotosProvider,
-    GetSinglePostProvider
+    GetSinglePostProvider,
+    StorePostProvider,
+    StoreLikeProvider,
+    StoreCommentProvider,
+    PostCrudProvider,
+    SharePostProvider,
+    FollowUserProvider,
+    UpdatePostProvider,
   ]
 })
 export class AppModule { }

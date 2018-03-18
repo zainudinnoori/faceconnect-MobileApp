@@ -1,0 +1,41 @@
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons>
+      <button ion-button (click)="dismiss()">
+        Cancle
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button (click)="updatePost(post.id)">
+        Done &nbsp;  <ion-icon ios="ios-checkbox-outline" md="md-checkbox-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <div>
+            <ion-item>
+                <ion-avatar item-start>
+                  <!-- <img [src]=http://localhost:8000/images/menprofilepic.png> -->
+
+                </ion-avatar>
+                <!-- <h2>{{post.user.name}}</h2> -->
+                <h2>{{post.post_user.name}}</h2>
+                <ion-note>
+                    {{post.created_at}}
+                </ion-note>
+              </ion-item>
+          
+              <!-- <img ng-if="cardItems.image" [src]="cardItems.image"> -->
+          
+              <ion-card-content>
+                  <textarea name="" class="textarea" [(ngModel)]="post_content" name="post_content">{{post.body}}</textarea>
+              </ion-card-content>
+        </div>
+      
+        <hr style="position:relative;top:7-15px">      
+      </ion-card>
+</ion-content>

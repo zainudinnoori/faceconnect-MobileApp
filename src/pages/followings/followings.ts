@@ -4,7 +4,7 @@ import { Item } from '../../models/item';
 import { Items, User } from '../../providers/providers';
 import { GetFollowingsProvider } from '../../providers/get-followings/get-followings'
 import { NavParams } from 'ionic-angular/navigation/nav-params';
-
+import { FollowUserProvider } from '../../providers/follow-user/follow-user'
 
 
 @IonicPage()
@@ -17,10 +17,13 @@ export class FollowingsPage {
   user : User;
   followings: any[];
   userId;
+  uId = localStorage.getItem('AuthId');
   // followingss:string[] = this.followings[name];
 
 
-  constructor(public navCtrl: NavController,public navParams: NavParams, public items: Items, public modalCtrl: ModalController, public getFollowingsService: GetFollowingsProvider) {
+  constructor(public navCtrl: NavController,public navParams: NavParams, public items: Items, public modalCtrl: ModalController, public getFollowingsService: GetFollowingsProvider,
+    public followUserService: FollowUserProvider
+  ) {
     this.currentItems = this.items.query();
     this.userId = this.navParams.get('userId');
   
@@ -34,33 +37,19 @@ export class FollowingsPage {
   }
 
 
-  goToUserProfilePage(Uid:number){
+  goToUserProfilePage(uId:number){
+    console.log(uId)
     this.navCtrl.push('UserProfilePage',{
-      Uid : Uid
+      uId : uId
     });
   }
 
-  initializeItems() {
-    this.getFollowingsService.getFollowings(this.userId).subscribe(data=>{
-      this.followings= data.followings;
-      console.log(this.followings.length)
-    })
+  followUser(userId) {
+    this.followUserService.follow(this.uId , userId).subscribe(data=>{
+      console.log(data.status);
+    });
+   console.log('userId which you follow------------' + userId);
   }
 
-
-  getItems(ev: any) {
-    // Reset items back to all of the items
-    // this.initializeItems();
-
-    // set val to the value of the searchbar
-    let val = ev.target.value;
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.followings = this.followings.filter((followings) => {
-        // console.log(followings.name)
-        return (followings.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
-  }
 
 }

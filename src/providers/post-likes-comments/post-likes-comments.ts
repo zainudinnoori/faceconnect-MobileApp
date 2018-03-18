@@ -3,13 +3,10 @@ import { Injectable } from '@angular/core';
 import { retry } from 'rxjs/operator/retry';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-// import { ca } from 'rxjs'  
-/*
-  Generated class for the PostLikesCommentsProvider provider.
+import { Comment } from '../../models/comment'
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
+
+
 @Injectable()
 export class PostLikesCommentsProvider {
 
@@ -34,7 +31,7 @@ serverUrl = 'http://127.0.0.1:8000/api/post/';
       });
   }
 
-  getComments(pid:number) : Observable<any>
+  getComments(pid:number) : Observable<Comment[]>
   {
       return this.http.get(this.serverUrl + pid + '/comments')
       .catch(err => {

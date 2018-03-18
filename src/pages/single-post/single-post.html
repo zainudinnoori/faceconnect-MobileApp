@@ -7,8 +7,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <!-- <ion-title>{{post.user.name}}</ion-title> -->
-    A users post
+    <ion-title>{{post?.post_user?.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -17,38 +16,47 @@
 <ion-content>
     <ion-card>
         <div>
-            <ion-item>
+            <ion-item (click)="goToUserProfilePage(post?.post_user?.id)">
                 <ion-avatar item-start>
-                  <!-- <img [src]="post.user.photo"> -->
+                  <img src="assets/img/sarah-avatar.png.jpeg">
                 </ion-avatar>
-                <!-- <h2>{{post.user.name}}</h2> -->
-                <h2>A user</h2>
+                <h2>{{post?.post_user?.name}}</h2>
                 <ion-note>
-                    {{post.created_at}}
+                    {{post?.created_at}}
                 </ion-note>
               </ion-item>
           
               <!-- <img ng-if="cardItems.image" [src]="cardItems.image"> -->
           
               <ion-card-content>
-                <p>{{post.body}}</p>
+                <p>{{post?.body}}</p>
               </ion-card-content>
+              <script>
+                var postId = post.id;
+              </script>
         </div>
         
         <hr>
     
-        <ion-item padding>
-            <ion-input placeholder="Write something about this post..."></ion-input>
-        </ion-item>
-        <hr style="position:relative;top:7-15px">      
+        <form #form="ngForm">
+          <ion-item>
+              <ion-input hidden [(ngModel)]="postId" name="postId"></ion-input>
+              <ion-input placeholder="Write something about this post..." ngModel name="commentBody"></ion-input>
+          </ion-item>
+            <button ion-button small outline round class="comment-button" end (click)="onSubmit(form)">
+              <ion-icon ios="ios-send" md="md-send"></ion-icon>
+            </button> 
+          <hr style="position:relative;top:7-15px"> 
+        </form>
+    
         <ion-item-group>  
           <ion-grid>
             <ion-row>
-              <b class="padding-left-10px blue"> {{commentsCount}} Comments...</b>
+              <b class="padding-left-10px blue"> {{post?.comments_count}} Comments...</b>
             </ion-row>
 
 
-            <ion-row *ngFor="let comment of comments">
+            <ion-row *ngFor="let comment of post?.comments">
               <ion-col col-2 style="margin-left:0px;padding:0px">
                   <ion-item item-right style="margin-right:0px;padding-right:0px" >
                      <img src="assets/img/sarah-avatar.png.jpeg">                
@@ -56,8 +64,8 @@
               </ion-col>
               <ion-col col-10>
                   <!-- <b>{{commentUser.name}}</b> -->
-                  <b>A user</b>
-                  <p>{{comment.body}}</p>
+                  <b (click)="goToUserProfilePage(comment?.comment_user?.id)">{{comment?.comment_user?.name}}</b>
+                  <p>{{comment?.body}}</p>
               </ion-col>
             </ion-row>
             
@@ -67,15 +75,15 @@
         <ion-row>
           <ion-col>
             <button ion-button color="primary" clear small icon-start>
-                <ion-icon name='thumbs-up'></ion-icon>
-                {{likesCount}} Likes
-              </button>
+              <ion-icon name='thumbs-up'></ion-icon>
+              {{post?.likes_count}} Likes
+            </button>
           </ion-col>
           <ion-col>
             <button ion-button color="primary" clear small icon-start>
                 <ion-icon name='text'></ion-icon>
-                {{commentsCount}} Comments
-              </button>
+                {{post?.comments_count}} Comments
+            </button>
           </ion-col>
           <ion-col center text-center>
               <button ion-button color="primary" clear small icon-start>

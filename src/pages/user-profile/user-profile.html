@@ -1,5 +1,5 @@
 
-<ion-header *ngIf="user">
+<ion-header>
 
     <ion-navbar color="primary">
       <ion-title>{{user?.name}}</ion-title>
@@ -162,14 +162,14 @@
   </ion-grid>
   <hr>
   
-  <ion-card *ngFor="let post of userPosts">
+  <ion-card *ngFor="let post of Posts">
       <ion-item>
         <ion-avatar item-start>
           <img src="assets/img/advance-card-bttf.png" >
         </ion-avatar>
-        <h2>Mustafa Ayan</h2>
+        <h2>{{post.post_user.name}}</h2>
         <ion-note>
-          50 minutes ago
+          {{post.created_at}}
         </ion-note>
   
       </ion-item>
@@ -182,57 +182,48 @@
         </p>
       </ion-card-content>
       
-      <hr style="position:relative;top:7px">
-  
-      <ion-item padding>
-          <ion-input placeholder="Write something about this post..."></ion-input>
-      </ion-item>
-      <hr style="position:relative;top:7-15px">      
+      <form #form="ngForm">
+          <ion-item>
+              <ion-input hidden [(ngModel)]="post.id" name="postId"></ion-input>
+              <ion-input placeholder="Write something about this post..." ngModel name="commentBody"></ion-input>
+          </ion-item>
+            <button ion-button small outline round class="comment-button" end (click)="onSubmit(form)">
+              <ion-icon ios="ios-send" md="md-send"></ion-icon>
+            </button> 
+          <hr style="position:relative;top:7-15px"> 
+        </form>  
+
       <ion-item-group>  
         <ion-grid>
-          <ion-row>
-            <b class="padding-left-10px blue"> 2 Comments...</b>
-          </ion-row>
-          <ion-row>
-            <ion-col col-2 style="margin-left:0px;padding:0px">
-                <ion-item item-right style="margin-right:0px;padding-right:0px" >
-                   <img src="assets/img/sarah-avatar.png.jpeg">                
-                </ion-item>
-            </ion-col>
-            <ion-col col-10>
-                <b>Siawash kasra</b>
-                <p>yes man this is the best and i have never seen this kind of projects</p>
-            </ion-col>
-          </ion-row>
-          <ion-row>
+          <ion-row *ngFor="let comment of post.latest_comments">
               <ion-col col-2 style="margin-left:0px;padding:0px">
                   <ion-item item-right style="margin-right:0px;padding-right:0px" >
-                     <img src="assets/img/advance-card-bttf.png">                
+                      <img src="assets/img/sarah-avatar.png.jpeg">                
                   </ion-item>
               </ion-col>
               <ion-col col-10>
-                  <b>Shareef sahil</b>
-                  <p>Amazing... </p>
+                  <b>{{comment.comment_user.name}}</b> <span end>{{comment.created_at}}</span>
+                  <p>{{comment.body}}</p>
               </ion-col>
-            </ion-row>  
-            <ion-row>
-              <a href="#" class="padding-left-10px">View other comments...</a>
             </ion-row>
+              <ion-row *ngIf="post.comments_count > 2">
+                <a href="#" class="padding-left-10px">View other comments...</a>
+              </ion-row>
         </ion-grid>
       </ion-item-group>
   
   
       <ion-row>
         <ion-col>
-          <button ion-button color="primary" (click)="goToLikePage()" clear small icon-start>
+          <button ion-button color="primary" (click)="likePost(post.id)" clear small icon-start>
               <ion-icon name='thumbs-up'></ion-icon>
-              12 Likes
-            </button>
+              {{post.likes_count}} Likes
+          </button>
         </ion-col>
         <ion-col>
           <button ion-button color="primary" clear small icon-start>
               <ion-icon name='text'></ion-icon>
-              4 Comments
+              {{post.comments_count}} Comments
             </button>
         </ion-col>
         <ion-col center text-center>

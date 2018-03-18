@@ -161,105 +161,93 @@
 
 </ion-grid>
 <hr>
-<ion-card>
-    <ion-item class="textarea">
-        <ion-textarea placeholder="What do have in your mind ?" class="yeah"></ion-textarea>
+
+
+<ion-card (click)="goToSubmitPostPage()">
+    <ion-item>
+        <p style="padding: 20px;font-size:15px">What do you have in your mind ?</p>
     </ion-item>
-    
-  <ion-grid>      
-    <ion-row>
-        <ion-col text-center>
-            <ion-item>
-              <ion-icon  item-end  name="images"></ion-icon>
-              <button ion-button item-start><b style="font-size:15px;">Post</b>
-                  <ion-icon class="padding-left medium-icon" name="send"></ion-icon>
-              </button>
-            </ion-item>              
-        </ion-col>
-    </ion-row>
-  </ion-grid>
 </ion-card>
 
-<ion-card *ngFor="let post of userPosts">
+<ion-card *ngFor="let post of Posts">
+
+<div>
     <ion-item>
-      <ion-avatar item-start>
-        <img src="assets/img/advance-card-bttf.png" >
-      </ion-avatar>
-      <h2>Mustafa Ayan</h2>
-      <ion-note>
-        {{post.created_at}}
-      </ion-note>
+        <ion-avatar item-start>
+          <!-- <img [src]="post.user.avatar"> -->
+          <img src="assets/img/sarah-avatar.png.jpeg">
+        </ion-avatar>
+        <!-- <h2>{{post.user_id}}</h2> -->
+            <h2>{{post.post_user.name}}
+              <span *ngIf="post.post_user.id == uId">
+                <ion-icon end class="editing" (click)="showPost()" ios="ios-create" md="md-create"></ion-icon>
+                <ion-icon end ios="ios-trash" (click)="deletePost(post.id)" class="editing" md="md-trash"></ion-icon>
+              </span>  
+            </h2>
+        <ion-note>
+            {{post.created_at}}
+            <!-- 12 hours ago     -->
+        </ion-note>
+      </ion-item>
 
-    </ion-item>
+      <!-- <img ng-if="post.image" [src]="item.image"> -->
+  
+      <ion-card-content (click)="goToSinglePost(post.id)">
+        <p>{{post.body}}</p>
+      </ion-card-content>
+</div>
 
-    <img >
-
-    <ion-card-content (click)="goToSinglePost(post.id)">
-      <p>
-        {{post.body}}
-      </p>
-    </ion-card-content>
-    
-    <hr style="position:relative;top:7px">
-
-    <ion-item padding>
-        <ion-input placeholder="Write something about this post..."></ion-input>
-    </ion-item>
-    <hr style="position:relative;top:7-15px">      
-    <ion-item-group>  
-      <ion-grid>
-        <ion-row>
-          <b class="padding-left-10px blue"> 2 Comments...</b>
-        </ion-row>
-        <ion-row>
-          <ion-col col-2 style="margin-left:0px;padding:0px">
-              <ion-item item-right style="margin-right:0px;padding-right:0px" >
-                 <img src="assets/img/sarah-avatar.png.jpeg">                
-              </ion-item>
-          </ion-col>
-          <ion-col col-10>
-              <b>Siawash kasra</b>
-              <p>yes man this is the best and i have never seen this kind of projects</p>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col col-2 style="margin-left:0px;padding:0px">
-                <ion-item item-right style="margin-right:0px;padding-right:0px" >
-                   <img src="assets/img/advance-card-bttf.png">                
-                </ion-item>
-            </ion-col>
-            <ion-col col-10>
-                <b>Shareef sahil</b>
-                <p>Amazing... </p>
-            </ion-col>
-          </ion-row>  
-          <ion-row>
-            <a href="#" class="padding-left-10px">View other comments...</a>
-          </ion-row>
-      </ion-grid>
-    </ion-item-group>
-
-
-    <ion-row>
-      <ion-col>
-        <button ion-button color="primary" (click)="goToLikePage()" clear small icon-start>
-            <ion-icon name='thumbs-up'></ion-icon>
-            12 Likes
-          </button>
+<hr>
+<form #form="ngForm">
+  <ion-item>
+      <ion-input hidden [(ngModel)]="post.id" name="postId"></ion-input>
+      <ion-input placeholder="Write something about this post..." ngModel name="commentBody"></ion-input>
+  </ion-item>
+    <button ion-button small outline round class="comment-button" end (click)="onSubmit(form)">
+      <ion-icon ios="ios-send" md="md-send"></ion-icon>
+    </button> 
+  <hr style="position:relative;top:7-15px"> 
+</form>
+<ion-item-group>  
+  <ion-grid>
+    <!-- <ion-row>
+      <b class="padding-left  -10px blue"> {{post.comments_count}} Comments...</b>
+    </ion-row> -->
+    <ion-row *ngFor="let comment of post.latest_comments">
+      <ion-col col-2 style="margin-left:0px;padding:0px">
+          <ion-item item-right style="margin-right:0px;padding-right:0px" >
+             <img src="assets/img/sarah-avatar.png.jpeg">                
+          </ion-item>
       </ion-col>
-      <ion-col>
-        <button ion-button color="primary" clear small icon-start>
-            <ion-icon name='text'></ion-icon>
-            4 Comments
-          </button>
-      </ion-col>
-      <ion-col center text-center>
-          <button ion-button color="primary" clear small icon-start>
-              <ion-icon name='share'></ion-icon>
-          </button>
+      <ion-col col-10>
+          <b>{{comment.comment_user.name}}</b> <span end>{{comment.created_at}}</span>
+          <p>{{comment.body}}</p>
       </ion-col>
     </ion-row>
+      <ion-row (click)="goToSinglePost(post.id)" *ngIf="post.comments_count > 2">
+        <a href="#" class="padding-left-10px">View other comments...</a>
+      </ion-row>
+  </ion-grid>
+</ion-item-group>
+<ion-row>
+  <ion-col>
+    <button ion-button color="primary" (click)="likePost(post.id)" clear small icon-start>
+        <ion-icon name='thumbs-up'></ion-icon>
+        {{post.likes_count}} Likes
+    </button>
+  </ion-col>
+  <ion-col>
+    <button ion-button color="primary" clear small icon-start>
+        <ion-icon name='text'></ion-icon>
+        {{post.comments_count}} Comments
+      </button>
+  </ion-col>
+  <ion-col center text-center>
+      <button ion-button color="primary" clear small icon-start (click)="sharePost(post.id)">
+          <ion-icon name='share'></ion-icon>
+      </button>
+  </ion-col>
+</ion-row>
 
-  </ion-card>
-
+</ion-card>
 </ion-content>

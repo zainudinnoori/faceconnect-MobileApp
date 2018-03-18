@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
 import { CardsPage } from '../cards/cards'
 import { CardHeader } from 'ionic-angular/components/card/card-header';
-/**
- * Generated class for the SubmitPostPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { StorePostProvider } from '../../providers/store-post/store-post'
+import { Observable } from 'rxjs/Observable';
+
 
 @IonicPage()
 @Component({
@@ -15,8 +12,10 @@ import { CardHeader } from 'ionic-angular/components/card/card-header';
   templateUrl: 'submit-post.html',
 })
 export class SubmitPostPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  body:string;
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public storePostService: StorePostProvider, public toastCtrl: ToastController
+  ) {
   }
 
   ionViewDidLoad() {
@@ -27,6 +26,29 @@ export class SubmitPostPage {
   }
 
   Post(){
-    alert('post done');
+    if(this.body != '' || this.body != null)
+    {
+      this.storePostService.submitPost(this.body).subscribe(res => {
+          console.log('post has posted');
+          let toast = this.toastCtrl.create({
+            message: 'Your post submitted successfully !!!',
+            duration: 3000,
+            position: 'top'
+            });
+            toast.present();
+            this.navCtrl.pop();
+    },err => {
+        console.log('error back to submit post component')
+    });
+  }
+  else{
+    let toast = this.toastCtrl.create({
+      message: 'Please write someting !!',
+      duration: 3000,
+      position: 'top'
+      });
+      toast.present();
+  }
+
   }
 }
