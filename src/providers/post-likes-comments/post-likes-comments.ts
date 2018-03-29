@@ -31,7 +31,7 @@ serverUrl = 'http://127.0.0.1:8000/api/post/';
       });
   }
 
-  getComments(pid:number) : Observable<Comment[]>
+  getComments(pid:number) : Observable<any>
   {
       return this.http.get(this.serverUrl + pid + '/comments')
       .catch(err => {

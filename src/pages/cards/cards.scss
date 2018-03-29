@@ -65,4 +65,23 @@ page-cards {
                 margin-top: 0px;
             }
         }
+    .fab-button{
+        color:black;
+        background-color:transparent;
+        box-shadow:none;
+        left:15px;
+        
+    }
+    .fab-action{
+        right:-35px
+    }
+    .popOvercontent{
+        top: 70px;
+        left: 194px;
+        width: 156px;
+        transform: scale(1);
+        border-radius: 0px 15px 0px 15px;
+        height: 222px;
+    }
+
 }

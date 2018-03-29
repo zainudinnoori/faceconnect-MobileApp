@@ -18,7 +18,7 @@
         <div>
             <ion-item (click)="goToUserProfilePage(post?.post_user?.id)">
                 <ion-avatar item-start>
-                  <img src="assets/img/sarah-avatar.png.jpeg">
+                  <img src="{{post?.post_user?.image_path}}">
                 </ion-avatar>
                 <h2>{{post?.post_user?.name}}</h2>
                 <ion-note>
@@ -41,9 +41,9 @@
         <form #form="ngForm">
           <ion-item>
               <ion-input hidden [(ngModel)]="postId" name="postId"></ion-input>
-              <ion-input placeholder="Write something about this post..." ngModel name="commentBody"></ion-input>
+              <ion-input placeholder="Write something about this post..." [(ngModel)]="commentBody" name="commentBody"></ion-input>
           </ion-item>
-            <button ion-button small outline round class="comment-button" end (click)="onSubmit(form)">
+            <button *ngIf="commentBody != ''" ion-button small outline round class="comment-button" end (click)="onSubmit(form)">
               <ion-icon ios="ios-send" md="md-send"></ion-icon>
             </button> 
           <hr style="position:relative;top:7-15px"> 
@@ -59,7 +59,7 @@
             <ion-row *ngFor="let comment of post?.comments">
               <ion-col col-2 style="margin-left:0px;padding:0px">
                   <ion-item item-right style="margin-right:0px;padding-right:0px" >
-                     <img src="assets/img/sarah-avatar.png.jpeg">                
+                     <img src="{{comment?.comment_user?.image_path}}">                
                   </ion-item>
               </ion-col>
               <ion-col col-10>
@@ -74,7 +74,7 @@
         </ion-item-group>
         <ion-row>
           <ion-col>
-            <button ion-button color="primary" clear small icon-start>
+            <button ion-button color="primary" clear small icon-start (click)='likePost(post?.id)'>
               <ion-icon name='thumbs-up'></ion-icon>
               {{post?.likes_count}} Likes
             </button>
@@ -85,7 +85,7 @@
                 {{post?.comments_count}} Comments
             </button>
           </ion-col>
-          <ion-col center text-center>
+          <ion-col center text-center (click)="sharePost(post?.id)">
               <button ion-button color="primary" clear small icon-start>
                   <ion-icon name='share'></ion-icon>
               </button>

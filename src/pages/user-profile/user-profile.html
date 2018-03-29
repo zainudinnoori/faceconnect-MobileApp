@@ -12,7 +12,8 @@
   
     <div class="splash-info">
       <div class="splas"></div>
-      <div class="splash-logo">
+        <div class="splash-logo" [ngStyle]="{'background-image': 'url(' + userImage + ')'}">
+
       </div>
     </div>
   
@@ -27,18 +28,25 @@
     <ion-grid>
       <ion-row text-center class="profile-icon-text">
         
-        <ion-col>
-          <button class="transparent">
-            <ion-icon name="paper" class="medium-icon picon"></ion-icon><br>
-            Posts
+        <ion-col *ngIf="followingStatus == 'no'">
+          <button class="transparent" (click)='followUser(user?.id)'>
+            <ion-icon name="md-eye" class="medium-icon picon"></ion-icon><br>
+            Follow
           </button>
+        </ion-col>
+
+        <ion-col *ngIf="followingStatus == 'yes'" >
+            <button class="transparent" (click)='unFollowUser(user?.id)'>
+              <ion-icon name="ios-eye-off" class="medium-icon picon"></ion-icon><br>
+              Unfollow
+            </button>
         </ion-col>
         
       
         <ion-col>
         <button class="transparent" (click)="goToFollowers(user.id)">
           <ion-icon name="people" class="medium-icon picon"></ion-icon><br>
-          Folowers
+          Followers
         </button>
         </ion-col>
   
@@ -50,7 +58,7 @@
         </ion-col>
   
         <ion-col>
-            <button class="transparent" (click)="goToFollowings()">
+            <button class="transparent" (click)="goToAllImagesPage(user.id)" >
               <ion-icon name="image" class="medium-icon picon" ></ion-icon><br>
               Images
             </button>
@@ -66,7 +74,7 @@
   
   <ion-grid>
   
-      <ion-row>
+      <ion-row *ngIf="user?.location != null">
         <ion-col>
             <ion-icon class="padding-left" name="home"></ion-icon>
         </ion-col>
@@ -75,7 +83,7 @@
         </ion-col>
       </ion-row>
   
-      <ion-row>
+      <ion-row *ngIf="user?.ccountry != null">
           <ion-col>
               <ion-icon class="padding-left" name="pin"></ion-icon>
           </ion-col>
@@ -130,7 +138,7 @@
   <ion-row>
   
   <ion-col col-6>
-      <img src="assets/img/advance-card-bttf.png" class="featured-images">
+      <img src="{{imagePath}}" class="featured-images">
   </ion-col>
   <ion-col col-6>
       <img src="assets/img/rundmc-live.png" class="featured-images">   
@@ -163,123 +171,102 @@
   <hr>
   
   <ion-card *ngFor="let post of Posts">
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="assets/img/advance-card-bttf.png" >
-        </ion-avatar>
-        <h2>{{post.post_user.name}}</h2>
-        <ion-note>
-          {{post.created_at}}
-        </ion-note>
-  
-      </ion-item>
-  
-      <img >
-  
-      <ion-card-content>
-        <p>
-          {{post.body}}
-        </p>
-      </ion-card-content>
-      
-      <form #form="ngForm">
+      <div>
           <ion-item>
-              <ion-input hidden [(ngModel)]="post.id" name="postId"></ion-input>
-              <ion-input placeholder="Write something about this post..." ngModel name="commentBody"></ion-input>
-          </ion-item>
-            <button ion-button small outline round class="comment-button" end (click)="onSubmit(form)">
-              <ion-icon ios="ios-send" md="md-send"></ion-icon>
-            </button> 
-          <hr style="position:relative;top:7-15px"> 
-        </form>  
-
+              <ion-avatar item-start  (click)="goToUserProfilePage(post.post_user.id)">
+                <img src="{{post.post_user.image_path}}">
+              </ion-avatar>
+                  <h2 (click)="goToUserProfilePage(post.post_user.id)"><b>{{post.post_user.name}}</b>
+                    
+                    <span *ngIf="post.post_user.id == AuthId">
+                        <ion-fab right bottom>
+                            <button ion-fab class="fab-button" ><ion-icon ios="ios-more" md="md-more"></ion-icon></button>
+                            <ion-fab-list side="left" class="fab-action">
+                              <button ion-fab color="danger" (click)="showConfirm(post.id)"><ion-icon name="trash"></ion-icon></button>
+                              <button ion-fab color="light"  (click)="editPost(post)"><ion-icon name="md-create"></ion-icon></button>
+                            </ion-fab-list>
+                          </ion-fab>
+                      
+                    </span>  
+                  </h2>
+              <ion-note>
+                  {{post.created_at}}
+              </ion-note>
+            </ion-item>
+      
+            <!-- <img ng-if="post.image" [src]="item.image"> -->
+        
+            <ion-card-content (click)="goToSinglePost(post.id)">
+              <p>{{post.body}}</p>
+            </ion-card-content>
+      </div>
+      
+      
+      <hr>
+      <!-- <form #form="ngForm">
+        <ion-item>
+            <ion-input hidden [(ngModel)]="post.id" name="postId"></ion-input>
+            <ion-input placeholder="Write something about this post..." ngModel name="commentBody"></ion-input>
+        </ion-item>z
+          <button ion-button small outline round class="comment-button" end (click)="onSubmit(form)">
+            <ion-icon ios="ios-send" md="md-send"></ion-icon>
+          </button> 
+        <hr style="position:relative;top:7-15px"> 
+      </form> -->
       <ion-item-group>  
+  
         <ion-grid>
-          <ion-row *ngFor="let comment of post.latest_comments">
+  
+            <ion-row *ngFor="let comment of post.latest_comments">
               <ion-col col-2 style="margin-left:0px;padding:0px">
                   <ion-item item-right style="margin-right:0px;padding-right:0px" >
-                      <img src="assets/img/sarah-avatar.png.jpeg">                
+                    <img src={{comment.comment_user.image_path}}>                
                   </ion-item>
               </ion-col>
               <ion-col col-10>
-                  <b>{{comment.comment_user.name}}</b> <span end>{{comment.created_at}}</span>
+                  <b (click)="goToUserProfilePage(comment.comment_user.id)">{{comment.comment_user.name}}</b> <span end>{{comment.created_at}}</span>
                   <p>{{comment.body}}</p>
               </ion-col>
             </ion-row>
-              <ion-row *ngIf="post.comments_count > 2">
-                <a href="#" class="padding-left-10px">View other comments...</a>
-              </ion-row>
+  
+          
+            <ion-row class="likesandcommentsrow"> 
+              <ion-col *ngIf="post.likes_count != 0"  class="likes" (click)="openLikesModal(post.id)">
+                <a class="padding-left-10px"> {{post.likes_count}} Likes</a>
+              </ion-col>
+  
+              <ion-col *ngIf="post.comments_count != 0" class="comments" (click)="openCommentsModal(post.id)">
+                <a class="padding-left-10px"> {{post.comments_count}} comments</a>
+              </ion-col>
+              <!-- goToSinglePost(post.id) -->
+            </ion-row>
+  
         </ion-grid>
       </ion-item-group>
-  
-  
       <ion-row>
         <ion-col>
-          <button ion-button color="primary" (click)="likePost(post.id)" clear small icon-start>
-              <ion-icon name='thumbs-up'></ion-icon>
-              {{post.likes_count}} Likes
+          <button ion-button (click)="likePost(post.id)" clear [class.liked]="likeButtonColor" small icon-start>
+            <!-- [@hitLike]="state" -->
+              <ion-icon  name='thumbs-up'></ion-icon>
+              Like
           </button>
         </ion-col>
         <ion-col>
-          <button ion-button color="primary" clear small icon-start>
+          <button ion-button class="grey" (click)="openCommentsModal(post.id)" clear small icon-start>
               <ion-icon name='text'></ion-icon>
-              {{post.comments_count}} Comments
+              Comment
             </button>
         </ion-col>
         <ion-col center text-center>
-            <button ion-button color="primary" clear small icon-start>
+            <button ion-button color="primary" clear small icon-start (click)="sharePost(post.id)">
                 <ion-icon name='share'></ion-icon>
+                Share
             </button>
         </ion-col>
       </ion-row>
   
     </ion-card>
-    <ion-card>
-        <ion-item>
-          <ion-avatar item-start>
-            <img src="assets/img/advance-card-bttf.png" >
-          </ion-avatar>
-          <h2>Mustafa Ayan</h2>
-          <ion-note>
-            12 hours ago
-          </ion-note>
-        </ion-item>
-  
-        <ion-card-content>
-            <p>
-              How is my pic guys. please forgive me, everyone.
-            </p>
-          </ion-card-content>
-  
-        <img src="assets/img/sarah-avatar.png.jpeg" >
-  
-        <hr>
-    
-        <ion-item padding>
-            <ion-input placeholder="Write something about this post..."></ion-input>
-        </ion-item>
-    
-        <ion-row>
-          <ion-col>
-            <button ion-button color="primary" (click)="goToLikePage()" clear small icon-start>
-                <ion-icon name='thumbs-up'></ion-icon>
-                19 Likes
-              </button>
-          </ion-col>
-          <ion-col>
-            <button ion-button color="primary" clear small icon-start>
-                <ion-icon name='text'></ion-icon>
-                1 Comments
-              </button>
-          </ion-col>
-          <ion-col center text-center>
-              <button ion-button color="primary" clear small icon-start>
-                  <ion-icon name='share'></ion-icon>
-              </button>
-          </ion-col>
-        </ion-row>
-    
-      </ion-card>
+    <h3 style="text-align:center;color:gray"> No other post... </h3>
   
   <!-- <ion-tabs style="border:5px solid red">
       <ion-tab [root]="tab1Root">Newsfeed</ion-tab>

@@ -7,12 +7,12 @@
   </ion-header>
   
   <ion-content>
-    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-searchbar  *ngIf="followers?.length != 0"></ion-searchbar>
     <ion-list>
       <ion-item-sliding *ngFor="let follower of followers">
         <button ion-item (click)="goToUserProfilePage(follower.id)">
           <ion-avatar item-start>
-            <!-- <img [src]="follower.profilePic" /> -->
+            <img src="{{follower.image_path}}" />
           </ion-avatar>
           <h2>{{follower.name}}</h2>
           <p>{{follower.about}}</p>
@@ -20,10 +20,11 @@
         </button>
   
         <ion-item-options>
-          <button ion-button color="danger" (click)="deleteItem(item)">
+          <button ion-button color="danger">
             Block  
           </button>
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>
+    <h3 *ngIf="followers?.length == 0" padding style="text-align:center; color:gray">You are not following by anyone as of now. </h3>
   </ion-content>

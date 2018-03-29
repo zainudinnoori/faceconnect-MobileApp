@@ -13,7 +13,6 @@ import { FollowUserProvider } from '../../providers/follow-user/follow-user'
   templateUrl: 'followings.html',
 })
 export class FollowingsPage {
-  currentItems: Item[];
   user : User;
   followings: any[];
   userId;
@@ -24,9 +23,9 @@ export class FollowingsPage {
   constructor(public navCtrl: NavController,public navParams: NavParams, public items: Items, public modalCtrl: ModalController, public getFollowingsService: GetFollowingsProvider,
     public followUserService: FollowUserProvider
   ) {
-    this.currentItems = this.items.query();
     this.userId = this.navParams.get('userId');
   
+
     this.getFollowingsService.getFollowings(this.userId).subscribe(data=>{
       this.followings= data.followings;
       console.log(this.followings.length)
@@ -47,6 +46,11 @@ export class FollowingsPage {
   followUser(userId) {
     this.followUserService.follow(this.uId , userId).subscribe(data=>{
       console.log(data.status);
+      this.getFollowingsService.getFollowings(this.userId).subscribe(data=>{
+        this.followings= data.followings;
+        console.log(this.followings.length)
+  
+      })
     });
    console.log('userId which you follow------------' + userId);
   }

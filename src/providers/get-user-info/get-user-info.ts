@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable'
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the GetUserInfoProvider provider.
@@ -11,15 +12,21 @@ import { Observable } from 'rxjs/Observable'
 @Injectable()
 export class GetUserInfoProvider {
   serverUrl: '';
-
-  constructor(public http: HttpClient) {
+  AuthId;
+  constructor(public http: HttpClient , public storage: Storage) {
     console.log('Hello GetUserInfoProvider Provider');
+    storage.get('Auth').then((val) => {
+      this.AuthId = val.authId
+      console.log('Authentication id in get info service'+this.AuthId)
+    })
+
   }
 
   getInfo(uId)
   {
-    console.log(uId);
-    return this.http.get('http://127.0.0.1:8000/api/user/'+ uId +'/info')
+    console.log('user info id in get info service '+ uId);
+    console.log('Authentication id in get info service'+this.AuthId);    
+    return this.http.get('http://127.0.0.1:8000/api/user/'+ uId +'/info/'+ this.AuthId)
     .catch(err => {
       console.log('err in get user info  service' , err);
       let error = 'Error'

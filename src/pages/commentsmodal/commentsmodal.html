@@ -12,12 +12,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content> 
+<ion-content #content> 
   <ion-list>
       <ion-list>
           <ion-item *ngFor="let comment of comments" (click)="goToUserProfilePage(comment.comment_user.id)">
             <ion-avatar item-start>
-              <img src="img/avatar-finn.png">
+              <img src="{{comment.comment_user.image_path}}">
             </ion-avatar>
             <h2><b>{{comment.comment_user.name}}</b></h2>
             <p>{{comment.created_at}}</p>
@@ -35,9 +35,10 @@
     <form #form="ngForm">
       <ion-item>
           <ion-input hidden [(ngModel)]="pId" name="postId"></ion-input>
-          <ion-input placeholder="Write something about this post..." ngModel name="commentBody"></ion-input>
+          <!-- ngModel -->
+          <ion-input required placeholder="Write something about this post..." [(ngModel)]="commentBody" name="commentBody"></ion-input>
       </ion-item>
-        <button ion-button small outline round class="comment-button" end (click)="onSubmit(form)">
+        <button *ngIf="commentBody != ''" ion-button small outline round class="comment-button" end (click)="onSubmit(form)">
           <ion-icon ios="ios-send" md="md-send"></ion-icon>
         </button> 
       <hr style="position:relative;top:7-15px"> 

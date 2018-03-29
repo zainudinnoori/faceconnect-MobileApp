@@ -4,6 +4,7 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { User } from '../../providers/providers';
 import { MainPage } from '../pages';
 import { LoginProvider } from '../../providers/login/login';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -21,7 +22,9 @@ export class LoginPage {
     public user: User,
     public toastCtrl: ToastController,
     public translateService: TranslateService,
-    public loginService: LoginProvider) {
+    public loginService: LoginProvider,
+    public storage : Storage,
+  ) {
 
     this.translateService.get('LOGIN_ERROR').subscribe((value) => {
       this.loginErrorString = value;
@@ -48,8 +51,17 @@ doLogin(value: any): void {
     position: 'top'
     });
     toast.present();
+    this.storage.set('Auth', res);
+    this.storage.get('Auth').then((val) => {
+      console.log(val)      
+    })
+
     localStorage.setItem('AuthId',res.authId);
-    // console.log(localStorage.getItem('Auth'));
+    localStorage.setItem('AuthName',res.authName);
+    // console.log(res);    
+    // console.log(localStorage.getItem('AuthId'));
+    // console.log(localStorage.getItem('AuthName'));
+    
  },err => {
       let toast = this.toastCtrl.create({
       message: err,

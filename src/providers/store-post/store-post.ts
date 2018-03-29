@@ -10,18 +10,19 @@ import { Observable } from 'rxjs/Observable';
 */
 @Injectable()
 export class StorePostProvider {
-
   constructor(public http: HttpClient) {
-    console.log('Hello StorePostProvider Provider');
+
   }
 
-  submitPost(body): Observable<any>{
+  submitPost(body,AuthId): Observable<any>{
     let url = "http://127.0.0.1:8000/api/post/store";
     console.log('you are in store post provider '+ body);
     return this.http
       .post(
         url,
-        { body: body},
+        { body: body,
+          userId: AuthId
+        },
       )
       .catch(err => {
         console.log('err in service: ', err)

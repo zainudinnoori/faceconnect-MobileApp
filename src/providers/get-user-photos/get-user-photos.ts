@@ -11,7 +11,7 @@ export class GetUserPhotosProvider {
   }
 
   getPhotos(userId) : Observable<any>{
-    return this.http.get('http://127.0.0.1:8000/api/users/'+ userId +'/photos')
+    return this.http.get('http://127.0.0.1:8000/api/user/'+ userId +'/photos')
     .catch(err=>{
       let error ='error'
       return Observable.throw(error);

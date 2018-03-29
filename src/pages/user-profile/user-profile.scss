@@ -93,6 +93,53 @@ page-user-profile {
         position: relative;
         left: 50px;
         }
+        .comment-button{
+            padding:0px 10px 0px 10px;
+            position: relative;
+            margin:3px 0px -2px 87%;
+        }
+        .editing{
+            color: rgba(255, 0, 0, 0.89);
+            font-size: 18px;
+            padding: 3px;
+            position: relative;
+            left: 50px;
+            }
+        .newclass{
+                color: blue;
+                background-color: red;
+            }
+            .liked { color: blue; }
+    
+            .likesandcommentsrow{
+                .likes{
+                    text-align: left;
+                }
+                .comments{
+                    text-align: right;
+                    right: 20px;
+                    margin-top: 0px;
+                }
+            }
+        .fab-button{
+            color:black;
+            background-color:transparent;
+            box-shadow:none;
+            left:15px;
+            
+        }
+        .fab-action{
+            right:-35px
+        }
+        .popOvercontent{
+            top: 70px;
+            left: 194px;
+            width: 156px;
+            transform: scale(1);
+            border-radius: 0px 15px 0px 15px;
+            height: 222px;
+        }
     }
+
       
     

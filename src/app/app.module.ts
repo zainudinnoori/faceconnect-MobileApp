@@ -34,6 +34,7 @@ import { SharePostProvider } from '../providers/share-post/share-post';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FollowUserProvider } from '../providers/follow-user/follow-user';
 import { UpdatePostProvider } from '../providers/update-post/update-post';
+// import { GetNotificationsProvider } from '../providers/get-notifications/get-notifications';
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
 export function createTranslateLoader(http: HttpClient) {
@@ -107,6 +108,7 @@ export function provideSettings(storage: Storage) {
     SharePostProvider,
     FollowUserProvider,
     UpdatePostProvider,
+    // GetNotificationsProvider,
   ]
 })
 export class AppModule { }

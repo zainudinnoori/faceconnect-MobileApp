@@ -1,16 +1,13 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-    </button>
+    <!-- <button (click)="logout()">
+        <ion-icon name="logout"></ion-icon>
+    </button> -->
 
-    <ion-searchbar 
-    [showCancelButton]="shouldShowCancel"
-    (ionInput)="onInput($event)"
-    (ionCancel)="onCancel($event)"
-    >
+  <ion-searchbar>
   </ion-searchbar>
+
   </ion-navbar>
   <ion-toolbar>
       <ion-grid>
@@ -19,13 +16,13 @@
             <ion-icon name="apps" color="primary"  class="medium-icon" ></ion-icon>          
             </ion-col>
             <ion-col text-center>
-                <ion-icon color="primary" name="chatbubbles" class="medium-icon"></ion-icon>
+                <ion-icon color="grey" name="chatbubbles" class="medium-icon"></ion-icon>
                 <ion-badge color="danger" item-end>8</ion-badge>
                 
             </ion-col>
-            <ion-col text-center (click)="goToNotifications()">
-                <ion-icon name="md-globe" color="primary" class="medium-icon"></ion-icon>
-                  <ion-badge color="danger" item-end>22</ion-badge>
+            <ion-col text-center>
+                <ion-icon name="md-globe" color="grey" class="medium-icon"></ion-icon>
+                  <ion-badge color="danger" item-end>{{notificationsCount}}</ion-badge>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -35,28 +32,43 @@
 <ion-content>
     <ion-card (click)="goToSubmitPostPage()">
         <ion-item>
-            <p style="padding: 20px;font-size:15px">What do you have in your mind ?</p>
+            <p style="padding: 20px;font-size:15px">
+              
+              What do you have in your mind ?</p>
         </ion-item>
-    </ion-card>
+    </ion-card> 
+
+  <ion-card  *ngIf="postsCount == 0">
+      <h2 padding center style="text-align:center;font-size:35px;color:red">
+
+        <ion-icon ios="ios-arrow-round-up" md="md-arrow-round-up"></ion-icon>
+        <br>
+        <b>Click up there to create your first post.</b><br>
+        <ion-icon name="ios-albums-outline"></ion-icon>
+      </h2>
+  </ion-card>
 
   <ion-card *ngFor="let post of posts">
-
     <div>
         <ion-item>
-            <ion-avatar item-start>
-              <!-- <img [src]="post.user.avatar"> -->
-              <img src="assets/img/sarah-avatar.png.jpeg">
+            <ion-avatar item-start  (click)="goToUserProfilePage(post.post_user.id)">
+              <img src="{{post.post_user.image_path}}">
             </ion-avatar>
-            <!-- <h2>{{post.user_id}}</h2> -->
-                <h2><b>{{post.post_user.name}}</b>
-                  <span *ngIf="post.post_user.id == uId">
-                    <ion-icon end class="editing" (click)="editPost(post)" ios="ios-create" md="md-create"></ion-icon>
-                    <ion-icon end ios="ios-trash" (click)="deletePost(post.id)" class="editing" md="md-trash"></ion-icon>
+                <h2><b (click)="goToUserProfilePage(post.post_user.id)">{{post.post_user.name}}</b>
+                  
+                  <span *ngIf="post.post_user.id == AuthId">
+                      <ion-fab right bottom>
+                          <button ion-fab class="fab-button" ><ion-icon ios="ios-more" md="md-more"></ion-icon></button>
+                          <ion-fab-list side="left" class="fab-action">
+                            <button ion-fab color="danger" (click)="showConfirm(post.id)"><ion-icon name="trash"></ion-icon></button>
+                            <button ion-fab color="light"  (click)="editPost(post)"><ion-icon name="md-create"></ion-icon></button>
+                          </ion-fab-list>
+                        </ion-fab>
+                    
                   </span>  
                 </h2>
             <ion-note>
                 {{post.created_at}}
-                <!-- 12 hours ago     -->
             </ion-note>
           </ion-item>
     
@@ -67,39 +79,41 @@
           </ion-card-content>
     </div>
     
+    
     <hr>
-    <form #form="ngForm">
+    <!-- <form #form="ngForm">
       <ion-item>
           <ion-input hidden [(ngModel)]="post.id" name="postId"></ion-input>
           <ion-input placeholder="Write something about this post..." ngModel name="commentBody"></ion-input>
-      </ion-item>
+      </ion-item>z
         <button ion-button small outline round class="comment-button" end (click)="onSubmit(form)">
           <ion-icon ios="ios-send" md="md-send"></ion-icon>
         </button> 
       <hr style="position:relative;top:7-15px"> 
-    </form>
+    </form> -->
     <ion-item-group>  
-      <ion-grid>
-        <ion-row *ngFor="let comment of post.latest_comments">
-          <ion-col col-2 style="margin-left:0px;padding:0px">
-              <ion-item item-right style="margin-right:0px;padding-right:0px" >
-                 <img src="assets/img/sarah-avatar.png.jpeg">                
-              </ion-item>
-          </ion-col>
-          <ion-col col-10>
-              <b>{{comment.comment_user.name}}</b> <span end>{{comment.created_at}}</span>
-              <p>{{comment.body}}</p>
-          </ion-col>
-        </ion-row>
 
-        <hr>
+      <ion-grid>
+
+          <ion-row *ngFor="let comment of post.latest_comments">
+            <ion-col col-2 style="margin-left:0px;padding:0px">
+                <ion-item item-right style="margin-right:0px;padding-right:0px" >
+                  <img src={{comment.comment_user.image_path}}>                
+                </ion-item>
+            </ion-col>
+            <ion-col col-10>
+                <b (click)="goToUserProfilePage(comment.comment_user.id)">{{comment.comment_user.name}}</b> <span end>{{comment.created_at}}</span>
+                <p>{{comment.body}}</p>
+            </ion-col>
+          </ion-row>
+
         
           <ion-row class="likesandcommentsrow"> 
-            <ion-col class="likes" (click)="openLikesModal(post.id)">
+            <ion-col *ngIf="post.likes_count != 0"  class="likes" (click)="openLikesModal(post.id)">
               <a class="padding-left-10px"> {{post.likes_count}} Likes</a>
             </ion-col>
 
-            <ion-col class="comments" (click)="openCommentsModal(post.id)">
+            <ion-col *ngIf="post.comments_count != 0" class="comments" (click)="openCommentsModal(post.id)">
               <a class="padding-left-10px"> {{post.comments_count}} comments</a>
             </ion-col>
             <!-- goToSinglePost(post.id) -->
@@ -130,4 +144,5 @@
     </ion-row>
 
   </ion-card>
+  <h3 style="text-align:center;color:gray"> No other post... </h3>
 </ion-content>

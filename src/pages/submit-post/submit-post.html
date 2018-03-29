@@ -12,7 +12,7 @@
       </button>
     </ion-buttons>
     <ion-buttons end>
-      <button ion-button (click)="Post()">
+      <button *ngIf="body != ''" ion-button (click)="Post()">
        Post &nbsp;  <ion-icon ios="ios-paper-plane" md="md-paper-plane"></ion-icon>
       </button>
     </ion-buttons>
@@ -24,10 +24,10 @@
   <ion-grid>
     <ion-row>
       <ion-col col-2>
-          <img src="assets/img/sarah-avatar.png.jpeg">  
+          <img src="{{user?.image_path}}">  
       </ion-col>
       <ion-col>
-        <b>Hamee khan</b>
+        <b>{{user?.name}}</b>
         <p style="margin:8px;color:blue"><ion-icon ios="ios-globe" md="md-globe"></ion-icon> Public</p>
       </ion-col>
     </ion-row>

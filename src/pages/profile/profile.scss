@@ -21,7 +21,7 @@ page-profile {
         }
         .splash-logo {
           margin: auto;
-          background: url('../assets/img/ian-avatar.png') repeat transparent;
+          background:repeat transparent;
           background-size: 100%;
           width: 128px;
           height: 128px;
@@ -94,5 +94,39 @@ page-profile {
         position: relative;
         left: 50px;
         }
+    .newclass{
+            color: blue;
+            background-color: red;
+        }
+        .liked { color: blue; }
+
+        .likesandcommentsrow{
+            .likes{
+                text-align: left;
+            }
+            .comments{
+                text-align: right;
+                right: 20px;
+                margin-top: 0px;
+            }
+        }
+    .fab-button{
+        color:black;
+        background-color:transparent;
+        box-shadow:none;
+        left:15px;
+        
+    }
+    .fab-action{
+        right:-35px
+    }
+    .popOvercontent{
+        top: 70px;
+        left: 194px;
+        width: 156px;
+        transform: scale(1);
+        border-radius: 0px 15px 0px 15px;
+        height: 222px;
+    }
 }
       

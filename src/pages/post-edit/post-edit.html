@@ -6,7 +6,7 @@
         Cancle
       </button>
     </ion-buttons>
-    <ion-buttons end>
+    <ion-buttons end *ngIf="post_content != ''">
       <button ion-button (click)="updatePost(post.id)">
         Done &nbsp;  <ion-icon ios="ios-checkbox-outline" md="md-checkbox-outline"></ion-icon>
       </button>
@@ -19,10 +19,9 @@
         <div>
             <ion-item>
                 <ion-avatar item-start>
-                  <!-- <img [src]=http://localhost:8000/images/menprofilepic.png> -->
+                  <img src={{post.post_user.image_path}}>
 
                 </ion-avatar>
-                <!-- <h2>{{post.user.name}}</h2> -->
                 <h2>{{post.post_user.name}}</h2>
                 <ion-note>
                     {{post.created_at}}

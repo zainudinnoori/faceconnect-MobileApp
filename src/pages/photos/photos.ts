@@ -9,7 +9,7 @@ import { GetUserPhotosProvider } from '../../providers/get-user-photos/get-user-
   templateUrl: 'photos.html',
 })
 export class PhotosPage {
-  photos:any[];
+  photos = [];
   userId;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public getUserPhotosService: GetUserPhotosProvider
@@ -18,7 +18,7 @@ export class PhotosPage {
     this.getUserPhotosService.getPhotos(this.userId)
     .subscribe(data=>{
       this.photos = data.photos;
-      console.log(this.photos)
+      console.log(data)
     })
     
   }

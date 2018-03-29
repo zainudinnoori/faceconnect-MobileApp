@@ -17,7 +17,7 @@
       <ion-list>
           <ion-item *ngFor="let like of likes" (click)="goToUserProfilePage(like.like_user.id)">
             <ion-avatar item-start>
-              <img src="img/avatar-finn.png">
+              <img src="{{like.like_user.image_path}}">
             </ion-avatar>
             <h2>{{like.like_user.name}}</h2>
             <p>{{like.created_at}}</p>

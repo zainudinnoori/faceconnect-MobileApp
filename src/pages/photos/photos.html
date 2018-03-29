@@ -10,10 +10,12 @@
 
 <ion-content padding>
 
+  <h2 padding style="color:gray;text-align:center" *ngIf="photos.length == ''">No photos Uploaded </h2>
+
   <ion-grid>
     <ion-row>
         <div *ngFor="let photo of photos">
-          <img src="assets/img/sarah-avatar.png.jpeg">
+          <img style="border:1px solid blue" src="{{photo.image_path+'_tumbinal'+photo.extension}}">
         </div>
     </ion-row>
   </ion-grid>

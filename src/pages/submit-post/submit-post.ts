@@ -4,7 +4,7 @@ import { CardsPage } from '../cards/cards'
 import { CardHeader } from 'ionic-angular/components/card/card-header';
 import { StorePostProvider } from '../../providers/store-post/store-post'
 import { Observable } from 'rxjs/Observable';
-
+import { GetUserInfoProvider } from '../../providers/get-user-info/get-user-info';
 
 @IonicPage()
 @Component({
@@ -12,10 +12,19 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: 'submit-post.html',
 })
 export class SubmitPostPage {
-  body:string;
+  body = '';
+  AuthId;
+  user;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public storePostService: StorePostProvider, public toastCtrl: ToastController
-  ) {
+    public storePostService: StorePostProvider, public toastCtrl: ToastController, public getUserInfoService: GetUserInfoProvider
+  ){
+    this.AuthId = this.navParams.get('AuthId');
+    this.getUserInfoService.getInfo(this.AuthId).subscribe(res=>{
+      this.user= res.userInfo;
+      console.log(res.userInfo);
+      console.log(this.user.name);
+      
+    })
   }
 
   ionViewDidLoad() {
@@ -28,7 +37,7 @@ export class SubmitPostPage {
   Post(){
     if(this.body != '' || this.body != null)
     {
-      this.storePostService.submitPost(this.body).subscribe(res => {
+      this.storePostService.submitPost(this.body,this.AuthId).subscribe(res => {
           console.log('post has posted');
           let toast = this.toastCtrl.create({
             message: 'Your post submitted successfully !!!',
@@ -36,7 +45,7 @@ export class SubmitPostPage {
             position: 'top'
             });
             toast.present();
-            this.navCtrl.pop();
+            this.navCtrl.setRoot('CardsPage');
     },err => {
         console.log('error back to submit post component')
     });

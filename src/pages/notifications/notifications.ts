@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { GetNotificationsProvider } from '../../providers/get-notifications/get-notifications' 
 
-/**
- * Generated class for the NotificationsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -14,8 +9,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'notifications.html',
 })
 export class NotificationsPage {
+  uId = localStorage.getItem('AuthId');
+  notificationsCount;
+  notifications;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,public getNotificationsService: GetNotificationsProvider ) {
+
+    this.getNotificationsService.notifications(this.uId).subscribe(res=>{
+      this.notifications = res.notifications;
+      this.notificationsCount = res.notifications.length;
+      console.log(this.notifications)
+    })
   }
 
   ionViewDidLoad() {

@@ -13,11 +13,12 @@ import { ToastController } from 'ionic-angular/components/toast/toast-controller
 
 export class PostEditPage {
   post:any;
-  post_content:string;
+  post_content ='';
   authId =  localStorage.getItem('AuthId')
   constructor(public navCtrl: NavController, public navParams: NavParams, public updatePostService: UpdatePostProvider , public toastCtrl: ToastController) {
     this.post = this.navParams.get('post');
     console.log(this.post.body)
+    this.post_content=this.post.body;
   }
 
   ionViewDidLoad() {
@@ -34,6 +35,7 @@ export class PostEditPage {
         });
         toast.present();
     })
+    this.navCtrl.setRoot('CardsPage');
   }
 
   dismiss(){

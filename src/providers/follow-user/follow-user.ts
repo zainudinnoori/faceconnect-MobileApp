@@ -15,10 +15,10 @@ export class FollowUserProvider {
     console.log('Hello FollowUserProvider Provider');
   }
 
-  follow(authId , userId) :Observable<any>{
+  follow(AuthId , userId) :Observable<any>{
     let url = "http://127.0.0.1:8000/api/user/follow";
     return this.http.post(url , {
-      authId: authId,
+      authId: AuthId,
       userId: userId
     })
     .catch( res =>{
